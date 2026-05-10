@@ -18,29 +18,10 @@ $action = $_GET['action'] ?? 'home';
     <div class="card">
         <h1>Placement Management System</h1>
 
-<?php
-// ROUTING SYSTEM
-
-if($action == 'register'){
-    include 'pages/register.php';
-}
-elseif($action == 'login'){
-    include 'pages/login.php';
-}
-elseif($action == 'dashboard'){
-    include 'pages/dashboard.php';
-}
-elseif($action == 'profile'){
-    include 'pages/profile.php';
-}
-elseif($action == 'report'){
-    include 'pages/report.php';
-}
-else{
-    echo "<a href='?action=login'>Login</a> | ";
-    echo "<a href='?action=register'>Register</a>";
-}
-?>
+        <p>Welcome to the Placement Management System.</p>
+        <br>
+        <a class="btn" href="login.html">Login</a>
+        <a class="btn btn-muted" href="register.html">Register</a>
 
     </div>
 </div>
