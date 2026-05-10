@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="Assets/styles/ui.css">
+    <style>
+        .login-shell {
+            min-height: 100vh;
+            padding: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle at top left, rgba(20, 184, 166, 0.16), transparent 28%),
+                radial-gradient(circle at bottom right, rgba(249, 115, 22, 0.14), transparent 22%),
+                linear-gradient(135deg, #f3f7f6 0%, #edf3f1 52%, #f8fafc 100%);
+        }
+
+        .login-layout {
+            width: min(1180px, 100%);
+            display: grid;
+            grid-template-columns: minmax(360px, 1.08fr) minmax(340px, 0.92fr);
+            border-radius: 30px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 32px 90px rgba(15, 23, 42, 0.16);
+            backdrop-filter: blur(18px);
+        }
+
+        .login-visual {
+            position: relative;
+            min-height: 720px;
+            padding: 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #f8fafc;
+            background:
+                linear-gradient(180deg, rgba(7, 23, 41, 0.2), rgba(15, 118, 110, 0.62)),
+                url('Assets/images/campus.jpg.jpg') center/cover no-repeat;
+        }
+
+        .login-visual::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(140deg, rgba(15, 118, 110, 0.18), transparent 46%, rgba(234, 88, 12, 0.22)),
+                radial-gradient(circle at top right, rgba(255, 255, 255, 0.14), transparent 28%);
+            pointer-events: none;
+        }
+
+        .login-visual > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .portal-tag {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .visual-copy h1 {
+            margin: 18px 0 14px;
+            font-size: clamp(2.8rem, 5vw, 4.8rem);
+            line-height: 0.92;
+            letter-spacing: -0.06em;
+            max-width: 8ch;
+        }
+
+        .visual-copy p {
+            margin: 0;
+            max-width: 48ch;
+            color: rgba(248, 250, 252, 0.88);
+            line-height: 1.75;
+            font-size: 1rem;
+        }
+
+        .visual-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 26px;
+        }
+
+        .metric-card {
+            padding: 14px 16px;
+            border-radius: 20px;
+            background: rgba(9, 19, 33, 0.26);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+        }
+
+        .metric-card strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 1.4rem;
+            letter-spacing: -0.04em;
+        }
+
+        .metric-card span {
+            color: rgba(248, 250, 252, 0.82);
+            font-size: 0.84rem;
+        }
+
+        .visual-footer {
+            display: grid;
+            gap: 12px;
+        }
+
+        .footer-note {
+            padding: 16px 18px;
+            border-radius: 20px;
+            background: rgba(9, 19, 33, 0.28);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+        }
+
+        .footer-note strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.98rem;
+        }
+
+        .footer-note p {
+            margin: 0;
+            color: rgba(248, 250, 252, 0.82);
+            line-height: 1.6;
+        }
+
+        .login-panel {
+            padding: 46px 38px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(243, 247, 245, 0.96));
+        }
+
+        .panel-tag {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(15, 118, 110, 0.08);
+            color: #0f766e;
+            border: 1px solid rgba(15, 118, 110, 0.12);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .login-panel h2 {
+            margin: 14px 0 10px;
+            font-size: 2.2rem;
+            letter-spacing: -0.05em;
+            color: #10221d;
+        }
+
+        .login-panel > p {
+            margin: 0 0 24px;
+            color: #5b6d67;
+            line-height: 1.65;
+        }
+
+        .login-form {
+            display: grid;
+            gap: 16px;
+        }
+
+        .field-row {
+            display: grid;
+            gap: 7px;
+        }
+
+        .field-row label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #10221d;
+        }
+
+        .field-row input {
+            width: 100%;
+            padding: 14px 15px;
+            border-radius: 16px;
+            border: 1px solid rgba(16, 34, 29, 0.12);
+            background: rgba(255, 255, 255, 0.94);
+            font-size: 0.97rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .field-row input:focus {
+            outline: none;
+            border-color: #0f766e;
+            box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.14);
+            transform: translateY(-1px);
+        }
+
+        .helper-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            color: #5b6d67;
+            font-size: 0.88rem;
+        }
+
+        .login-message {
+            display: none;
+            margin: 0 0 18px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            border: 1px solid rgba(15, 118, 110, 0.18);
+            background: rgba(20, 184, 166, 0.1);
+            color: #0f766e;
+            font-size: 0.92rem;
+            font-weight: 700;
+        }
+
+        .helper-row a {
+            color: #0f766e;
+            font-weight: 700;
+        }
+
+        .login-button {
+            margin-top: 4px;
+            width: 100%;
+            border: none;
+            border-radius: 999px;
+            padding: 14px 18px;
+            font-size: 0.98rem;
+            font-weight: 800;
+            color: #ffffff;
+            cursor: pointer;
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+            box-shadow: 0 18px 32px rgba(15, 118, 110, 0.24);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 36px rgba(15, 118, 110, 0.28);
+        }
+
+        .trust-strip {
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(16, 34, 29, 0.08);
+            display: grid;
+            gap: 12px;
+        }
+
+        .trust-card {
+            padding: 14px 16px;
+            border-radius: 18px;
+            background: rgba(15, 118, 110, 0.05);
+            border: 1px solid rgba(15, 118, 110, 0.08);
+        }
+
+        .trust-card strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #10221d;
+            font-size: 0.95rem;
+        }
+
+        .trust-card p {
+            margin: 0;
+            color: #5b6d67;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .switch-link {
+            margin-top: 20px;
+            text-align: center;
+            color: #5b6d67;
+        }
+
+        .switch-link a {
+            font-weight: 800;
+            color: #0f766e;
+        }
+
+        @media (max-width: 980px) {
+            .login-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .login-visual {
+                min-height: 460px;
+            }
+
+            .visual-metrics {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .login-shell {
+                padding: 14px;
+            }
+
+            .login-visual,
+            .login-panel {
+                padding: 24px 20px;
+            }
+
+            .visual-metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .helper-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="login-shell">
+    <div class="login-layout">
+        <section class="login-visual">
+            <div class="visual-copy">
+                <span class="portal-tag">Placement Portal</span>
+                <h1>Step into the campus hiring network.</h1>
+                <p>One login gives students, officers, and administrators a cleaner way to manage opportunities, approvals, profiles, and placement progress with your campus identity front and center.</p>
+
+                <div class="visual-metrics">
+                    <div class="metric-card">
+                        <strong>Students</strong>
+                        <span>Profiles, eligibility, and application tracking</span>
+                    </div>
+                    <div class="metric-card">
+                        <strong>Officers</strong>
+                        <span>Recruiter coordination and job publishing</span>
+                    </div>
+                    <div class="metric-card">
+                        <strong>Admins</strong>
+                        <span>User approvals and final placement reports</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-footer">
+                <div class="footer-note">
+                    <strong>Institution-first design</strong>
+                    <p>Your campus image, placement workflow, and user roles are presented like a real academic recruitment system rather than a default form page.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="login-panel">
+            <span class="panel-tag">Secure Access</span>
+            <h2>Welcome back</h2>
+            <p>Log in to continue to your dashboard and manage your placement activity with a more professional portal experience.</p>
+            <div id="loginMessage" class="login-message">Registration successful. Please sign in to continue to your dashboard.</div>
+
+            <form class="login-form" action="login.php" method="POST">
+                <div class="field-row">
+                    <label for="email">Email Address</label>
+                    <input id="email" type="email" name="email" placeholder="you@example.com" required>
+                </div>
+
+                <div class="field-row">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <div class="helper-row">
+                    <span>Use your approved portal account credentials.</span>
+                    <a href="register.html">Create account</a>
+                </div>
+
+                <button type="submit" class="login-button">Sign In to Portal</button>
+            </form>
+
+            <div class="trust-strip">
+                <div class="trust-card">
+                    <strong>Faster access to actions</strong>
+                    <p>Move directly from authentication into dashboards for job applications, user approvals, and company management.</p>
+                </div>
+                <div class="trust-card">
+                    <strong>Professional first impression</strong>
+                    <p>The login page now reflects the institution visually instead of looking like a plain default HTML form.</p>
+                </div>
+            </div>
+
+            <div class="switch-link">
+                Need an account? <a href="register.html">Register here</a>
+            </div>
+        </section>
+    </div>
+</div>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const loginMessage = document.getElementById('loginMessage');
+
+    if (params.get('registered') === '1') {
+        loginMessage.style.display = 'block';
+    }
+</script>
+</body>
+</html>
